@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jean.mei.entities.enums.TipoCliente;
 
 import jakarta.persistence.CollectionTable;
@@ -30,12 +31,17 @@ public class Cliente implements Serializable{
 	private String cpfCnpf;
 	private Integer tipo;	
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Cliente() {
 		
@@ -105,6 +111,14 @@ public class Cliente implements Serializable{
 	public void setTelefones(Set<String> telfones) {
 		this.telefones = telfones;
 	}
+	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 
 	@Override
 	public int hashCode() {
@@ -136,6 +150,8 @@ public class Cliente implements Serializable{
 		return "Cliente [id=" + id + ", nome=" + nome + ", email=" + email + ", cpfCnpf=" + cpfCnpf + ", tipo=" + tipo
 				+ ", enderecos=" + enderecos + ", telfones=" + telefones + "]";
 	}
+
+	
 	
 	
 
