@@ -2,6 +2,7 @@ package com.jean.mei.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jean.mei.entities.enums.EstadoPagamento;
 
 import jakarta.persistence.Entity;
@@ -22,6 +23,7 @@ public abstract class  Pagamento implements Serializable {
 	private Integer id;
 	private Integer estado;
 	
+	@JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId
