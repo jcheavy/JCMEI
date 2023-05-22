@@ -72,6 +72,10 @@ public class MeiApplication implements CommandLineRunner{
 		 Categoria cat2 = new Categoria(null, "Eletrica");
 		 Categoria cat3 = new Categoria(null, "Mecanica");
 		 Categoria cat4 = new Categoria(null, "Informática");
+		 Categoria cat5 = new Categoria(null, "Cama mesa e banho");	
+		 Categoria cat6 = new Categoria(null, "Jardinagem");
+		 Categoria cat7 = new Categoria(null, "Decoração");
+		 Categoria cat8 = new Categoria(null, "Perfumaria");
 		 
 		 Produto p1 = new Produto(null, "Computador", 2.100);
 		 Produto p2 = new Produto(null, "Impressora", 1.200);
@@ -84,7 +88,7 @@ public class MeiApplication implements CommandLineRunner{
 		 p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
 		 p3.getCategorias().addAll(Arrays.asList(cat1));
 		 
-		 repo.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
+		 repo.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8));
 		 produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
 		 
 
@@ -95,8 +99,10 @@ public class MeiApplication implements CommandLineRunner{
 			Cidade c2 = new Cidade(null, "São Paulo", est2);
 			Cidade c3 = new Cidade(null, "Campinas", est2);
 			
+			
 			est1.getCidades().addAll(Arrays.asList(c1));
 			est2.getCidades().addAll(Arrays.asList(c2, c3));
+			
 			
 			estadoRepository.saveAll(Arrays.asList(est1, est2));			
 			cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
