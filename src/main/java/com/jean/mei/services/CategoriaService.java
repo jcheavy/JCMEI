@@ -3,10 +3,12 @@ package com.jean.mei.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.jean.mei.entities.Categoria;
 import com.jean.mei.repositories.CategoriaRepository;
+import com.jean.mei.services.exceptions.DataIntegrityException;
 import com.jean.mei.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -14,16 +16,34 @@ public class CategoriaService {
 
 	@Autowired
 	CategoriaRepository categoriaRepository;
-	
-	
-	public Categoria bucar(Integer id) {
+
+	public Categoria find(Integer id) {
 		Optional<Categoria> obj = categoriaRepository.findById(id);
-		
+
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
-	
-	public void salvar() {
-		
+
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return categoriaRepository.save(obj);
 	}
+
+	public Categoria update(Categoria obj) {
+		find(obj.getId());
+		return categoriaRepository.save(obj);
+	}
+
+	public void delete(Integer id) {
+		find(id);
+		try {
+			categoriaRepository.deleteById(id);
+
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+
+		}
+
+	}
+
 }
